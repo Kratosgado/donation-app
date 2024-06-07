@@ -3,6 +3,7 @@ import { Navbar } from "@/components/navbar";
 import { PinContainer } from "@/components/ui/3d-pin";
 import { BackgroundBeams } from "@/components/ui/background-beans";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { LampDemo } from "@/components/lamp.effect";
 import Image from "next/image";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
         direction="right"
         speed="slow"
       />
+      <LampDemo />
 
       <div className="h-[40rem] w-full flex items-center justify-center">
         <PinContainer title="creator page" href="https://Kratosgado.github.io">
