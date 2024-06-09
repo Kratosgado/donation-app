@@ -6,7 +6,7 @@ import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { LampDemo } from "@/components/lamp.effect";
 import Image from "next/image";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter.effect";
-import { InfoSecion } from "@/components/info.section";
+import { InspirationsSection } from "@/components/inspirations.section";
 
 export default function Home() {
   return (
@@ -52,7 +52,7 @@ export default function Home() {
           </div>
         </PinContainer>
       </div>
-      <InfoSecion />
+      <InspirationsSection />
 
       <BackgroundBeams />
     </main>
