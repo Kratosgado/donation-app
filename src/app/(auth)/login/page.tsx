@@ -13,7 +13,7 @@ export default function SignupForm() {
   };
   return (
     <WavyBackground className="max-w-4xl mx-auto pb-40">
-      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+      <div className="max-w-md w-full mx-auto dark:border-white/[0.2] rounded-md md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
         <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
           Welcome to KNUST Donation Platform
         </h2>

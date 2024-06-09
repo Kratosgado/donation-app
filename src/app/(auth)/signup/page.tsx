@@ -13,7 +13,7 @@ export default function SignupForm() {
   };
   return (
     <WavyBackground className="max-w-4xl mx-auto pb-40">
-      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+      <div className="max-w-md w-full mx-auto  md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black dark:border-white/[0.2] rounded-md">
         <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
           Welcome to KNUST Donation Platform
         </h2>
@@ -25,11 +25,11 @@ export default function SignupForm() {
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
             <LabelInputContainer>
               <Label htmlFor="firstname">First name</Label>
-              <Input id="firstname" placeholder="Tyler" type="text" />
+              <Input id="firstname" placeholder="Kratos" type="text" />
             </LabelInputContainer>
             <LabelInputContainer>
               <Label htmlFor="lastname">Last name</Label>
-              <Input id="lastname" placeholder="Durden" type="text" />
+              <Input id="lastname" placeholder="Gado" type="text" />
             </LabelInputContainer>
           </div>
           <LabelInputContainer className="mb-4">
