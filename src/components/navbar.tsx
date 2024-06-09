@@ -29,13 +29,13 @@ export function Navbar({ className }: { className?: string }) {
           <div className="  text-sm grid grid-cols-2 gap-10 p-4">
             <ProductItem
               title="Have Food for spare?"
-              href="https://algochurn.com"
+              href="#donations"
               src="https://assets.aceternity.com/demos/algochurn.webp"
               description="Prepare for tech interviews like never before."
             />
             <ProductItem
               title="Have clothes for the needy?"
-              href="https://tailwindmasterkit.com"
+              href="#donations"
               src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
               description="Production ready Tailwind css components for your next project"
             />

@@ -6,10 +6,11 @@ import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { LampDemo } from "@/components/lamp.effect";
 import Image from "next/image";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter.effect";
+import { InfoSecion } from "@/components/info.section";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Navbar className="top-2" />
       <InfiniteMovingCards
         items={testimonials}
@@ -17,8 +18,7 @@ export default function Home() {
         speed="slow"
       />
       <LampDemo />
-      {/* <div className="flex items-center justify-center"> */}
-      <div className="h-[40rem] w-full flex items-center justify-center flex-row">
+      <div id="donations" className="h-[40rem] w-full flex items-center justify-center flex-row">
         <TypewriterEffectSmooth
           words={[
             { text: "Donation" },
@@ -52,7 +52,8 @@ export default function Home() {
           </div>
         </PinContainer>
       </div>
-      {/* </div> */}
+      <InfoSecion />
+
       <BackgroundBeams />
     </main>
   );
