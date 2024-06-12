@@ -5,8 +5,14 @@ import { IconBrandGoogle } from "@tabler/icons-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { WavyBackground } from "@/components/ui/wavy-background";
+import { auth, db } from "@/lib/utils/firebase";
 
 export default function SignupForm() {
+  const [firstname, setFirstname] = React.useState("");
+  const [lastname, setLastname] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");

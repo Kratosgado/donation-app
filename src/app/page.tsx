@@ -18,7 +18,10 @@ export default function Home() {
         speed="slow"
       />
       <LampDemo />
-      <div id="donations" className="h-[40rem] w-full flex items-center justify-center flex-row">
+      <div
+        id="donations"
+        className="h-[40rem] w-full flex items-center justify-center flex-row"
+      >
         <TypewriterEffectSmooth
           words={[
             { text: "Donation" },
@@ -52,6 +55,15 @@ export default function Home() {
           </div>
         </PinContainer>
       </div>
+      <TypewriterEffectSmooth
+        words={[
+          { text: "Get" },
+          {
+            text: "Inspired!!!",
+            className: "text-blue-500 dark:text-blue-500",
+          },
+        ]}
+      />
       <InspirationsSection />
 
       <BackgroundBeams />
