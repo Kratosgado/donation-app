@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   HoveredLink,
   Menu,
@@ -7,9 +7,14 @@ import {
   ProductItem,
 } from "@/components/ui/navbar-menu";
 import { cn } from "@/lib/utils/cn";
+import { User } from "firebase/auth";
+import { useRouter } from "next/router";
+import { firebaseConfig } from "@/lib/firebase/firebase";
+import { onAuthStateChanged } from "@/lib/firebase/auth";
 
 export function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
+  const user = useUserSession(null);
   return (
     <div
       className={cn(
@@ -53,13 +58,65 @@ export function Navbar({ className }: { className?: string }) {
             />
           </div>
         </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Have an account?">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/signup">Sign Up</HoveredLink>
-            <HoveredLink href="/login">Log In</HoveredLink>
-          </div>
-        </MenuItem>
+        {user !== null ? (
+          <MenuItem
+            setActive={setActive}
+            active={active}
+            item={user.displayName!}
+          ></MenuItem>
+        ) : (
+          <MenuItem
+            setActive={setActive}
+            active={active}
+            item="Have an account?"
+          >
+            <div className="flex flex-col space-y-4 text-sm">
+              <HoveredLink href="/signup">Sign Up</HoveredLink>
+              <HoveredLink href="/login">Log In</HoveredLink>
+            </div>
+          </MenuItem>
+        )}
       </Menu>
     </div>
   );
+}
+
+function useUserSession(initialUser: User | null) {
+  // the initialUser comes from the server via a server component
+  const [user, setUser] = useState<User | null>(initialUser);
+  // const router = useRouter();
+
+  // Register the service worker that sends auth state back to server
+  // The service worker is built with npm run build-service-worker
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      const serializedFirebaseConfig = encodeURIComponent(
+        JSON.stringify(firebaseConfig)
+      );
+      const serviceWorkerUrl = `/auth-service-worker.js?firebaseConfig=${serializedFirebaseConfig}`;
+
+      navigator.serviceWorker
+        .register(serviceWorkerUrl)
+        .then((registration) => console.log("Scope is: ", registration));
+    }
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged((authUser) => {
+      setUser(authUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    onAuthStateChanged((authUser) => {
+      if (user === undefined) return;
+      // refresh when user changed to ease testing
+      if (user?.email !== authUser?.email) {
+        // router.reload();
+      }
+    });
+  }, [user]);
+  return user;
 }
