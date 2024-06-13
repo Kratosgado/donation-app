@@ -11,10 +11,11 @@ import { useRouter } from "next/router";
 import { firebaseConfig } from "@/lib/firebase/firebase";
 import { getUserData, onAuthStateChanged } from "@/lib/firebase/auth";
 import { User } from "@/lib/utils/user";
+import { useAuthContext } from "./auth.context";
 
 export function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
-  const user = useUserSession(null);
+  const user = useAuthContext();
   return (
     <div
       className={cn(
@@ -79,35 +80,4 @@ export function Navbar({ className }: { className?: string }) {
       </Menu>
     </div>
   );
-}
-
-function useUserSession(initialUser: User | null) {
-  // the initialUser comes from the server via a server component
-  const [user, setUser] = useState<User | null>(initialUser);
-  // const router = useRouter();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(async (authUser) => {
-      if (authUser !== null) {
-        const user = await getUserData(authUser.uid);
-        console.info("currentUser", user);
-        setUser(user);
-        return;
-      }
-      setUser(null);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    onAuthStateChanged((authUser) => {
-      if (user === undefined) return;
-      // refresh when user changed to ease testing
-      if (user?.email !== authUser?.email) {
-        // router.reload();
-      }
-    });
-  }, [user]);
-  return user;
 }

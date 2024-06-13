@@ -1,10 +1,8 @@
 import { testimonials } from "@/components/moving.cards";
-import { Navbar } from "@/components/navbar";
 import { PinContainer } from "@/components/ui/3d-pin";
 import { BackgroundBeams } from "@/components/ui/background-beans";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { LampDemo } from "@/components/lamp.effect";
-import Image from "next/image";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter.effect";
 import { InspirationsSection } from "@/components/inspirations.section";
 
