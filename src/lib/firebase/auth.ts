@@ -1,4 +1,4 @@
-import { User, browserPopupRedirectResolver, signInWithPopup } from "firebase/auth";
+import { User, browserPopupRedirectResolver, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "./firebase";
 import { GoogleAuthProvider } from "firebase/auth/web-extension";
 
@@ -10,15 +10,26 @@ export function onAuthStateChanged(callback: (user: User | null) => void) {
 export const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((result) => {
-        console.log("signin successful", result);
+        console.info("signin successful", result);
     }).catch((err) => {
         console.error("signin failed", err);
     })
 }
 
-export const signInWithEmailAndPassword = async (email: string, password: string) => {
+export const signUp = async (email: string, password: string) => {
     try {
-        await signInWithEmailAndPassword(email, password);
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        console.info("Sign up successful", result);
+
+    } catch (error) {
+        console.error("Error signing in with email and password: ", error);
+    }
+}
+
+export const signIn = async (email: string, password: string) => {
+    try {
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        console.info("Sign in successful", result);
     } catch (error) {
         console.error("Error signing in with email and password: ", error);
     }

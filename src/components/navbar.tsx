@@ -62,7 +62,7 @@ export function Navbar({ className }: { className?: string }) {
           <MenuItem
             setActive={setActive}
             active={active}
-            item={user.displayName!}
+            item={user.email!}
           ></MenuItem>
         ) : (
           <MenuItem
@@ -85,21 +85,6 @@ function useUserSession(initialUser: User | null) {
   // the initialUser comes from the server via a server component
   const [user, setUser] = useState<User | null>(initialUser);
   // const router = useRouter();
-
-  // Register the service worker that sends auth state back to server
-  // The service worker is built with npm run build-service-worker
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      const serializedFirebaseConfig = encodeURIComponent(
-        JSON.stringify(firebaseConfig)
-      );
-      const serviceWorkerUrl = `/auth-service-worker.js?firebaseConfig=${serializedFirebaseConfig}`;
-
-      navigator.serviceWorker
-        .register(serviceWorkerUrl)
-        .then((registration) => console.log("Scope is: ", registration));
-    }
-  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged((authUser) => {

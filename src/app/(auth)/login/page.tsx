@@ -5,12 +5,18 @@ import { IconBrandGoogle } from "@tabler/icons-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { WavyBackground } from "@/components/ui/wavy-background";
+import { signIn } from "@/lib/firebase/auth";
 
 export default function SignupForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    await signIn(email, password);
   };
+  
   return (
     <WavyBackground className="max-w-4xl mx-auto pb-40">
       <div className="max-w-md w-full mx-auto dark:border-white/[0.2] rounded-md md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
@@ -24,11 +30,11 @@ export default function SignupForm() {
         <form className="my-8" onSubmit={handleSubmit}>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="email">Email Address</Label>
-            <Input id="email" placeholder="kratosgado@gmail.com" type="email" />
+            <Input id="email" placeholder="kratosgado@gmail.com" type="email" onChange={(e) => setEmail(e.target.value)} />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" placeholder="••••••••" type="password" />
+            <Input id="password" placeholder="••••••••" type="password" onChange={(e) => setPassword(e.target.value)} />
           </LabelInputContainer>
 
           <button

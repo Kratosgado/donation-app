@@ -17,8 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <Navbar className="top-2" />
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navbar className="top-2" />
+
+        {children}
+      </body>
     </html>
   );
 }
