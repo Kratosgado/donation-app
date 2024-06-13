@@ -16,9 +16,9 @@ export default function SignupForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await signUp(email, password);
-    console.log("Form submitted");
+    await signUp({ email, password, firstname, lastname });
   };
+
   return (
     <WavyBackground className="max-w-4xl mx-auto pb-40">
       <div className="max-w-md w-full mx-auto  md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black dark:border-white/[0.2] rounded-md">
@@ -33,20 +33,40 @@ export default function SignupForm() {
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
             <LabelInputContainer>
               <Label htmlFor="firstname">First name</Label>
-              <Input onChange={(e) => setFirstname(e.target.value)} id="firstname" placeholder="Kratos" type="text" />
+              <Input
+                onChange={(e) => setFirstname(e.target.value)}
+                id="firstname"
+                placeholder="Kratos"
+                type="text"
+              />
             </LabelInputContainer>
             <LabelInputContainer>
               <Label htmlFor="lastname">Last name</Label>
-              <Input id="lastname" placeholder="Gado" type="text" onChange={(e) => setLastname(e.target.value)} />
+              <Input
+                id="lastname"
+                placeholder="Gado"
+                type="text"
+                onChange={(e) => setLastname(e.target.value)}
+              />
             </LabelInputContainer>
           </div>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="email">Email Address</Label>
-            <Input id="email" placeholder="kratosgado@gmail.com" type="email" onChange={(e) => setEmail(e.target.value)} />
+            <Input
+              id="email"
+              placeholder="kratosgado@gmail.com"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" placeholder="••••••••" type="password" onChange={(e) => setPassword(e.target.value)} />
+            <Input
+              id="password"
+              placeholder="••••••••"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </LabelInputContainer>
 
           <button

@@ -7,10 +7,10 @@ import {
   ProductItem,
 } from "@/components/ui/navbar-menu";
 import { cn } from "@/lib/utils/cn";
-import { User } from "firebase/auth";
 import { useRouter } from "next/router";
 import { firebaseConfig } from "@/lib/firebase/firebase";
-import { onAuthStateChanged } from "@/lib/firebase/auth";
+import { getUserData, onAuthStateChanged } from "@/lib/firebase/auth";
+import { User } from "@/lib/utils/user";
 
 export function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
@@ -62,7 +62,7 @@ export function Navbar({ className }: { className?: string }) {
           <MenuItem
             setActive={setActive}
             active={active}
-            item={user.email!}
+            item={user.firstname}
           ></MenuItem>
         ) : (
           <MenuItem
@@ -87,8 +87,14 @@ function useUserSession(initialUser: User | null) {
   // const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged((authUser) => {
-      setUser(authUser);
+    const unsubscribe = onAuthStateChanged(async (authUser) => {
+      if (authUser !== null) {
+        const user = await getUserData(authUser.uid);
+        console.info("currentUser", user);
+        setUser(user);
+        return;
+      }
+      setUser(null);
     });
 
     return () => unsubscribe();
