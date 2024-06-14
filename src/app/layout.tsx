@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
+import { AuthContextProvider } from "@/components/auth.context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <body className={inter.className}>
-        <Navbar className="top-2" />
-
-        {children}
+        <AuthContextProvider>
+          <Navbar className="top-2" />
+          {children}
+        </AuthContextProvider>
       </body>
     </html>
   );

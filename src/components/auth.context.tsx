@@ -1,3 +1,5 @@
+"use client"
+
 import { getUserData } from "@/lib/firebase/auth";
 import { auth } from "@/lib/firebase/firebase";
 import { User } from "@/lib/utils/user";

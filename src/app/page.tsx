@@ -25,7 +25,7 @@ export default function Home() {
             { text: "Options", className: "text-blue-500 dark:text-blue-500" },
           ]}
         />
-        <PinContainer title="Food Donation" href="/donate/food">
+        <PinContainer title="Food Donation" href="/donate">
           <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem]">
             <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100">
               Have food for spare?
@@ -38,7 +38,7 @@ export default function Home() {
             <div className="flex flex-1 w-full rounded-lg mt-4 bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500" />
           </div>
         </PinContainer>
-        <PinContainer title="Clothing Donation" href="/donate/clothing">
+        <PinContainer title="Clothing Donation" href="/donate">
           <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem]">
             <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100">
               Have clothes for the needy?

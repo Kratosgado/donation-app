@@ -16,6 +16,7 @@ import { useAuthContext } from "./auth.context";
 export function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const user = useAuthContext();
+  
   return (
     <div
       className={cn(

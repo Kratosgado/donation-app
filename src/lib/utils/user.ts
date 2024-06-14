@@ -1,7 +1,9 @@
+import { Donation } from "./donation";
 
 
 export type User = Pick<SignUpData, "email" | "firstname" | "lastname"> & {
     id: string,
+    donations: Donation[],
 };
 
 export type SignUpData = {
