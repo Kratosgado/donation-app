@@ -9,14 +9,15 @@ import {
 import { cn } from "@/lib/utils/cn";
 import { useRouter } from "next/router";
 import { firebaseConfig } from "@/lib/firebase/firebase";
-import { getUserData, onAuthStateChanged } from "@/lib/firebase/auth";
+import { getUserData, onAuthStateChanged, signOut } from "@/lib/firebase/auth";
 import { User } from "@/lib/utils/user";
 import { useAuthContext } from "./auth.context";
+import { CustomButton } from "./label.containter";
 
 export function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const user = useAuthContext();
-  
+
   return (
     <div
       className={cn(
@@ -61,11 +62,12 @@ export function Navbar({ className }: { className?: string }) {
           </div>
         </MenuItem>
         {user !== null ? (
-          <MenuItem
-            setActive={setActive}
-            active={active}
-            item={user.firstname}
-          ></MenuItem>
+          <MenuItem setActive={setActive} active={active} item={user.firstname}>
+            <div className="flex flex-col space-y-4 text-sm">
+              <HoveredLink  href="/profile">Profile</HoveredLink>
+              <CustomButton className="bg-red-600" onClick={signOut}>Logout</CustomButton>
+            </div>
+          </MenuItem>
         ) : (
           <MenuItem
             setActive={setActive}
