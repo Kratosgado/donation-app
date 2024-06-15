@@ -5,15 +5,24 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { signIn, signInWithGoogle } from "@/lib/firebase/auth";
-import { LabelInputContainer, BottomGradient, CustomButton } from "@/components/label.containter";
+import {
+  LabelInputContainer,
+  BottomGradient,
+  CustomButton,
+} from "@/components/label.containter";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function SignupForm() {
+  const {toast} = useToast();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signIn({ email: email, password });
+    toast({
+      title: "Authentication service",
+    });
   };
 
   return (

@@ -3,8 +3,7 @@ import { auth, db } from "./firebase";
 import { GoogleAuthProvider } from "firebase/auth/web-extension";
 import { SignInData, SignUpData, User } from "../utils/user";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useRouter } from "next/router";
-import { redirect } from "next/navigation";
+import { Donation } from "../utils/donation";
 
 
 
@@ -27,9 +26,10 @@ export const signUp = async (data: SignUpData) => {
         delete data.password;
         const user: User = {
             id: result.user.uid,
+            donationIds: [],
             ...data
         }
-        await addDataToFirestore("users", user.id, user);
+        await addDataToFirestore("users", user);
         console.info("Sign up successful", result);
 
     } catch (error) {
@@ -46,9 +46,9 @@ export const signIn = async (data: SignInData) => {
     }
 }
 
-const addDataToFirestore = async (collection: string, id: string, data: User) => {
-    await setDoc(doc(db, collection, id), data, { merge: true }).then(() => {
-        console.info("Document successfully written!");
+export const addDataToFirestore = async (collection: string, data: User | Donation) => {
+    const res = await setDoc(doc(db, collection, data.id), data, { merge: true }).then(() => {
+        console.info("Document successfully written!", res);
     }).catch((err) => {
         console.error("Error saving data", err);
     });

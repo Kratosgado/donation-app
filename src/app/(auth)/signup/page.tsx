@@ -7,8 +7,10 @@ import { Input } from "@/components/ui/input";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { auth, db } from "@/lib/firebase/firebase";
 import { signInWithGoogle, signUp } from "@/lib/firebase/auth";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function SignupForm() {
+  const { toast } = useToast();
   const [firstname, setFirstname] = React.useState("");
   const [lastname, setLastname] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -17,6 +19,9 @@ export default function SignupForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signUp({ email, password, firstname, lastname });
+    toast({
+      title: "Authentication Service",
+    });
   };
 
   return (

@@ -1,20 +1,21 @@
 import { z } from "zod";
 
-export enum DonationType {
-    CLOTHES = "Clothes",
-    FOOD = "Food",
-    MONEY = "Money",
-    OTHER = "Other",
-};
+export enum DonationStatus {
+  Offered,
+  Due,
+  Completed,
+}
 
 export type Donation = {
+    id: string,
     userId?: string;
-    type: DonationType;
+    type: string;
     description: string;
     quantity: number;
     location: string;
     date: Date;
-    images: string[];
+  images: string[];
+    status: DonationStatus
 }
  
 // form schema for donation form
@@ -28,7 +29,7 @@ export const formSchema = z.object({
     .min(3, { message: "Last name must be greater than 2 letters" })
     .max(25),
   email: z.string().email({ message: "Invalid email address" }),
-  type: z.nativeEnum(DonationType),
+  type: z.string(),
   description: z
     .string()
     .min(10, { message: "Description must be greater than 10 letters" })
