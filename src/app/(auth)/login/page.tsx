@@ -11,9 +11,11 @@ import {
   CustomButton,
 } from "@/components/label.containter";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
-export default function SignupForm() {
-  const {toast} = useToast();
+export default function LoginForm() {
+  const router = useRouter();
+  const { toast } = useToast();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -22,7 +24,9 @@ export default function SignupForm() {
     await signIn({ email: email, password });
     toast({
       title: "Authentication service",
+      description: "Login successful",
     });
+    router.replace("/");
   };
 
   return (
@@ -55,7 +59,7 @@ export default function SignupForm() {
             />
           </LabelInputContainer>
 
-          <CustomButton type="submit"> Sign up &rarr;</CustomButton>
+          <CustomButton type="submit"> Log In &rarr;</CustomButton>
 
           <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 

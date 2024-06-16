@@ -1,4 +1,3 @@
-import { doc, setDoc } from "firebase/firestore";
 import { Donation, DonationStatus } from "../utils/donation";
 import { auth } from "./firebase";
 import { addDataToFirestore } from "./auth";

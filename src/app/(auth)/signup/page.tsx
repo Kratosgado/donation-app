@@ -5,11 +5,12 @@ import { IconBrandGoogle } from "@tabler/icons-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { WavyBackground } from "@/components/ui/wavy-background";
-import { auth, db } from "@/lib/firebase/firebase";
 import { signInWithGoogle, signUp } from "@/lib/firebase/auth";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
+  const router = useRouter()
   const { toast } = useToast();
   const [firstname, setFirstname] = React.useState("");
   const [lastname, setLastname] = React.useState("");
@@ -21,7 +22,9 @@ export default function SignupForm() {
     await signUp({ email, password, firstname, lastname });
     toast({
       title: "Authentication Service",
+      description: "Signup successful"
     });
+    router.replace("/");
   };
 
   return (

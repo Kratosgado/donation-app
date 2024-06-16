@@ -13,9 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  CustomButton,
-} from "@/components/label.containter";
+import { CustomButton } from "@/components/label.containter";
 import { Input } from "@/components/ui/input";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { formSchema } from "@/lib/utils/donation";
@@ -29,22 +27,17 @@ import {
 } from "@radix-ui/react-popover";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@radix-ui/react-select";
-import { SelectGroup } from "@/components/ui/select";
+import { useAuthContext } from "@/components/auth.context";
 
 export default function ProfileForm() {
+  const currentUser = useAuthContext();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
+      firstName: currentUser?.firstname || "",
+      lastName: currentUser?.lastname || "",
+      email: currentUser?.email || "",
       type: "Clothes",
       description: "",
       quantity: 0,
@@ -53,11 +46,33 @@ export default function ProfileForm() {
     },
   });
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const uploadedImages = Array.from(files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      form.setValue("images", uploadedImages);
+      // setDonation((prevDonation: Donation) => ({
+      //   ...prevDonation,
+      //   images: [...prevDonation.images, ...uploadedImages],
+      // }));
+    }
+  };
+
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function handleDonationSubmit() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    // console.log(values);
+    form.handleSubmit(
+      (data) => {
+        console.info(data);
+      },
+      (errors) => {
+        console.error("Info not valid", errors);
+      }
+    );
   }
 
   const personalField = () => (
@@ -124,21 +139,24 @@ export default function ProfileForm() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Donation Type</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a donation type" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value={"Clothes"}>Clothes</SelectItem>
-                  <SelectItem value={"Food"}>Food</SelectItem>
-                  <SelectItem value={"Money"}>Money</SelectItem>
-                  <SelectItem value={"Other"}>Other</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <FormControl>
+              <select
+                className="flex h-10 w-full border-none bg-gray-50 dark:bg-zinc-800 text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm  file:border-0 file:bg-transparent 
+          file:text-sm file:font-medium placeholder:text-neutral-400 dark:placeholder-text-neutral-600 
+          focus-visible:outline-none focus-visible:ring-[2px]  focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600
+           disabled:cursor-not-allowed disabled:opacity-50
+           dark:shadow-[0px_0px_1px_1px_var(--neutral-700)]
+           group-hover/input:shadow-none transition duration-400
+           "
+                defaultValue={field.value}
+                onChange={field.onChange}
+              >
+                <option value={"Clothes"}>Clothes</option>
+                <option value={"Food"}>Food</option>
+                <option value={"Money"}>Money</option>
+                <option value={"Other"}>Other</option>
+              </select>
+            </FormControl>
             <FormDescription>
               Select the type of donation you want to make.
             </FormDescription>
@@ -256,16 +274,13 @@ export default function ProfileForm() {
   return (
     <WavyBackground className="w-screen mx-auto pt-40">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className=" mx-auto dark:border-white/[0.2] rounded-md md:rounded-2xl p-4 md:p-8 shadow-input w-screen"
-        >
+        <form className=" mx-auto dark:border-white/[0.2] rounded-md md:rounded-2xl p-4 md:p-8 shadow-input w-screen">
           <div className="flex flex-row justify-around px-60">
             {personalField()}
             {donationField()}
           </div>
 
-          <CustomButton onClick={form.handleSubmit(onSubmit)} className="max-w-sm w-4">
+          <CustomButton onClick={handleDonationSubmit} className="max-w-sm w-4">
             Submit
           </CustomButton>
         </form>
@@ -273,16 +288,3 @@ export default function ProfileForm() {
     </WavyBackground>
   );
 }
-
-//   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const files = event.target.files;
-//     if (files) {
-//       const uploadedImages = Array.from(files).map((file) =>
-//         URL.createObjectURL(file)
-//       );
-//       setDonation((prevDonation: Donation) => ({
-//         ...prevDonation,
-//         images: [...prevDonation.images, ...uploadedImages],
-//       }));
-//     }
-//   };
