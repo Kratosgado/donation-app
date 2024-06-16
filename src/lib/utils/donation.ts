@@ -39,6 +39,6 @@ export const formSchema = z.object({
     .string()
     .min(3, { message: "Location must be greater than 2 letters" })
     .max(25),
-  date: z.date(),
+  date: z.date({message: "Invalid date"}),
   images: z.array(z.string()),
 });

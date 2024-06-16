@@ -16,7 +16,7 @@ import {
 import { CustomButton } from "@/components/label.containter";
 import { Input } from "@/components/ui/input";
 import { WavyBackground } from "@/components/ui/wavy-background";
-import { formSchema } from "@/lib/utils/donation";
+import { Donation, DonationStatus, formSchema } from "@/lib/utils/donation";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
@@ -28,9 +28,12 @@ import {
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/components/auth.context";
+import { offerDonation } from "@/lib/firebase/donation";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function ProfileForm() {
   const currentUser = useAuthContext();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,9 +43,10 @@ export default function ProfileForm() {
       email: currentUser?.email || "",
       type: "Clothes",
       description: "",
-      quantity: 0,
+      quantity: 1,
       location: "",
       images: [],
+      date: new Date(), // Make sure date has a default value
     },
   });
 
@@ -53,27 +57,34 @@ export default function ProfileForm() {
         URL.createObjectURL(file)
       );
       form.setValue("images", uploadedImages);
-      // setDonation((prevDonation: Donation) => ({
-      //   ...prevDonation,
-      //   images: [...prevDonation.images, ...uploadedImages],
-      // }));
     }
   };
 
-  // 2. Define a submit handler.
-  function handleDonationSubmit() {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    // console.log(values);
-    form.handleSubmit(
-      (data) => {
-        console.info(data);
-      },
-      (errors) => {
-        console.error("Info not valid", errors);
+  const handleDonationSubmit = form.handleSubmit(
+    async (data) => {
+      const donationData: Donation = {
+        id: data.date.toISOString(),
+        status: DonationStatus.Offered,
+        userId: currentUser?.id,
+        ...data,
+      };
+      try {
+        await offerDonation(donationData);
+        toast({
+          title: "Donation offered",
+        });
+      } catch (err: any) {
+        toast({
+          title: "Error offering donation",
+          description: err.message,
+          variant: "destructive",
+        });
       }
-    );
-  }
+    },
+    (errors) => {
+      console.error("Info not valid", errors);
+    }
+  );
 
   const personalField = () => (
     <div>
@@ -132,7 +143,6 @@ export default function ProfileForm() {
 
   const donationField = () => (
     <div>
-      {/* Information on Donation */}
       <FormField
         control={form.control}
         name="type"
@@ -204,7 +214,7 @@ export default function ProfileForm() {
               <Input placeholder="Location" {...field} />
             </FormControl>
             <FormDescription>
-              Where do you want to donate the items?
+              Provide your residential Informations?
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -259,7 +269,7 @@ export default function ProfileForm() {
           <FormItem>
             <FormLabel>Images</FormLabel>
             <FormControl>
-              <Input type="file" {...field} multiple />
+              <Input type="file" multiple onChange={handleImageUpload} />
             </FormControl>
             <FormDescription>
               Upload images of the items you want to donate.
@@ -268,21 +278,23 @@ export default function ProfileForm() {
           </FormItem>
         )}
       />
+      <CustomButton type="submit" className="max-w-sm w-4">
+        Submit
+      </CustomButton>
     </div>
   );
 
   return (
     <WavyBackground className="w-screen mx-auto pt-40">
       <Form {...form}>
-        <form className=" mx-auto dark:border-white/[0.2] rounded-md md:rounded-2xl p-4 md:p-8 shadow-input w-screen">
+        <form
+          onSubmit={handleDonationSubmit}
+          className="mx-auto dark:border-white/[0.2] rounded-md md:rounded-2xl p-4 md:p-8 shadow-input w-screen"
+        >
           <div className="flex flex-row justify-around px-60">
             {personalField()}
             {donationField()}
           </div>
-
-          <CustomButton onClick={handleDonationSubmit} className="max-w-sm w-4">
-            Submit
-          </CustomButton>
         </form>
       </Form>
     </WavyBackground>
