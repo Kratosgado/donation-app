@@ -7,17 +7,17 @@ export enum DonationStatus {
 }
 
 export type Donation = {
-    id: string,
-    userId?: string;
-    type: string;
-    description: string;
-    quantity: number;
-    location: string;
-    date: Date;
+  id: string,
+  userId?: string;
+  type: string;
+  description: string;
+  quantity: number;
+  location: string;
+  date: Date;
   images: string[];
-    status: DonationStatus
+  status: DonationStatus
 }
- 
+
 // form schema for donation form
 export const formSchema = z.object({
   firstName: z
@@ -39,6 +39,6 @@ export const formSchema = z.object({
     .string()
     .min(3, { message: "Location must be greater than 2 letters" })
     .max(25),
-  date: z.date({message: "Invalid date"}),
+  date: z.date({ message: "Invalid date" }),
   images: z.array(z.string()),
 });

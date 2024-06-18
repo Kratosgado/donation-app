@@ -67,6 +67,7 @@ export default function ProfileForm() {
         status: DonationStatus.Offered,
         userId: currentUser?.id,
         ...data,
+        
       };
       try {
         await offerDonation(donationData);

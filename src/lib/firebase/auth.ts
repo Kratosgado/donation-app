@@ -47,10 +47,11 @@ export const signIn = async (data: SignInData) => {
 }
 
 export const addDataToFirestore = async (collection: string, data: User | Donation) => {
-    const res = await setDoc(doc(db, collection, data.id), data, { merge: true }).then(() => {
-        console.info("Document successfully written!", res);
+    await setDoc(doc(db, collection, data.id), data, { merge: true }).then(() => {
+        console.info("Document successfully written!");
     }).catch((err) => {
-        console.error("Error saving data", err);
+        console.error("Error saving data");
+        throw err;
     });
 }
 
