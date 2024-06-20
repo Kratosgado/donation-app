@@ -10,7 +10,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
-  const router = useRouter()
+  const router = useRouter();
   const { toast } = useToast();
   const [firstname, setFirstname] = React.useState("");
   const [lastname, setLastname] = React.useState("");
@@ -22,13 +22,13 @@ export default function SignupForm() {
     await signUp({ email, password, firstname, lastname });
     toast({
       title: "Authentication Service",
-      description: "Signup successful"
+      description: "Signup successful",
     });
     router.replace("/");
   };
 
   return (
-    <WavyBackground className="max-w-4xl mx-auto pb-40">
+    <WavyBackground className="max-w-4xl mx-auto pt-40">
       <div className="max-w-md w-full mx-auto  md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black dark:border-white/[0.2] rounded-md">
         <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
           Welcome to KNUST Donation Platform

@@ -56,6 +56,7 @@ export default function ProfileForm() {
       const uploadedImages = Array.from(files).map((file) =>
         URL.createObjectURL(file)
       );
+      console.info(uploadedImages);
       form.setValue("images", uploadedImages);
     }
   };
@@ -67,7 +68,6 @@ export default function ProfileForm() {
         status: DonationStatus.Offered,
         userId: currentUser?.id,
         ...data,
-        
       };
       try {
         await offerDonation(donationData);

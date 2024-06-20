@@ -31,3 +31,21 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Custom Themes */
+.theme-orange .profile-page { background: #FFE5B4; }
+.theme-green .profile-page { background: #B2FFB4; }
+.theme-red .profile-page { background: #FFB4B4; }
+
+.theme-switcher {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.theme-switcher.is-active {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
