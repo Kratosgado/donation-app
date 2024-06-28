@@ -19,12 +19,20 @@ export default function SignupForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await signUp({ email, password, firstname, lastname });
-    toast({
-      title: "Authentication Service",
-      description: "Signup successful",
+    await signUp({ email, password, firstname, lastname }).then(() => {
+      toast({
+        title: "Authentication Service",
+        description: "Signup successful",
+      });
+      router.replace("/");
+    }).catch(err => {
+      toast({
+        title: "Authentication Service",
+        variant: "destructive",
+        description: "Signup failed",
+      });
     });
-    router.replace("/");
+    
   };
 
   return (

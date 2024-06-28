@@ -21,12 +21,21 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await signIn({ email: email, password });
-    toast({
-      title: "Authentication service",
-      description: "Login successful",
-    });
-    router.replace("/");
+    await signIn({ email: email, password })
+      .then(() => {
+        toast({
+          title: "Authentication service",
+          description: "Login successful",
+        });
+        router.replace("/");
+      })
+      .catch((err) => {
+        toast({
+          title: "Authentication service",
+          variant: "destructive",
+          description: "Login failed",
+        });
+      });
   };
 
   return (
