@@ -5,10 +5,13 @@ import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { LampDemo } from "@/components/lamp.effect";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter.effect";
 import { InspirationsSection } from "@/components/inspirations.section";
+import { Navbar } from "@/components/navbar";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <Navbar className="top-2" />
+
       <InfiniteMovingCards
         items={testimonials}
         direction="right"

@@ -7,6 +7,9 @@ import { useAuthContext } from "@/components/auth.context";
 const ProfilePage: React.FC = () => {
   const user = useAuthContext();
 
+  const bgImage =
+    "https://image.freepik.com/free-photo/friendly-brunette-looking-camera_23-2147774849.jpg";
+
   return (
     <main className=" bg-zinc-950  flex justify-center items-center min-h-screen py-40">
       <div className="bg-neutral-950 shadow-md shadow-gray-700 w-full max-w-4xl p-8 rounded-2xl">
@@ -15,8 +18,7 @@ const ProfilePage: React.FC = () => {
           <div
             className="absolute w-48 h-48 rounded-full bg-cover bg-center mx-auto -mt-24 shadow-lg shadow-gray-700"
             style={{
-              backgroundImage:
-                "url('https://image.freepik.com/free-photo/friendly-brunette-looking-camera_23-2147774849.jpg')",
+              backgroundImage: `url('${bgImage}')`,
             }}
           ></div>
 
@@ -30,12 +32,12 @@ const ProfilePage: React.FC = () => {
             <p>Computer Science Student - Enterprenuer</p>
             <p>On-Campus - Baby Brunei</p>
           </div>
-          Donations
+          <div className="text-center mt-12 text-4xl font-bold">Donations</div>
           <ul className=" flex justify-center mt-6 space-x-8">
             <li className="text-center">
               <span className="block text-2xl font-bold">65</span>Food Items
             </li>
-            <li className="text-center">
+            <li className="text-center ">
               <span className="block text-2xl font-bold">43</span>Clothings
             </li>
             <li className="text-center">

@@ -21,7 +21,6 @@ export default function RootLayout({
     <html lang="en" className="dark scroll-smooth">
       <body className={inter.className}>
         <AuthContextProvider>
-          <Navbar className="top-2" />
           {children}
         </AuthContextProvider>
         <Toaster />
