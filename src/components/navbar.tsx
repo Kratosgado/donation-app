@@ -64,8 +64,10 @@ export function Navbar({ className }: { className?: string }) {
         {user !== null ? (
           <MenuItem setActive={setActive} active={active} item={user.firstname}>
             <div className="flex flex-col space-y-4 text-sm">
-              <HoveredLink  href="/profile">Profile</HoveredLink>
-              <CustomButton className="bg-red-600" onClick={signOut}>Logout</CustomButton>
+              <HoveredLink href="/profile">Profile</HoveredLink>
+              <CustomButton className="bg-red-600" onClick={signOut}>
+                Logout
+              </CustomButton>
             </div>
           </MenuItem>
         ) : (

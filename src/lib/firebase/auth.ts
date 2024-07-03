@@ -34,6 +34,7 @@ export const signUp = async (data: SignUpData) => {
 
     } catch (error) {
         console.error("Error signing in with email and password: ", error);
+        throw error;
     }
 }
 
@@ -43,6 +44,7 @@ export const signIn = async (data: SignInData) => {
         console.info("Sign in successful", result);
     } catch (error) {
         console.error("Error signing in with email and password: ", error);
+        throw error;
     }
 }
 
