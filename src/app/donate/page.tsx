@@ -234,7 +234,7 @@ export default function ProfileForm() {
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
+                        "w-[240px] pl-3 text-left font-normal text-white",
                         !field.value && "text-muted-foreground"
                       )}
                     >
@@ -245,6 +245,7 @@ export default function ProfileForm() {
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
+                  className="bg-white rounded-md"
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
