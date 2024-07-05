@@ -12,11 +12,6 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Navbar className="top-2" />
 
-      <InfiniteMovingCards
-        items={testimonials}
-        direction="right"
-        speed="slow"
-      />
       <LampDemo />
       <div
         id="donations"
@@ -64,7 +59,23 @@ export default function Home() {
           },
         ]}
       />
-      <InspirationsSection />
+
+
+        <InspirationsSection />
+        <InfiniteMovingCards
+          items={testimonials}
+          direction="right"
+          speed="slow"
+        />
+
+        <div id="how-it-works">
+          <h1 className="">How It Works</h1>
+          <p>So thosj sdfklfjsdk fjsdh fsdhf sdjhfsdlkj fkosdjf sdljaf kdjfa nsdjhf nsfhsdjfh sdl jksdhfjkhsdj</p>
+        </div>
+        <div id="about-us">
+          <h1>About Us</h1>
+            <p>sldjfklsdlfjsd fkjsd</p>
+        </div>
 
       <BackgroundBeams />
     </main>
