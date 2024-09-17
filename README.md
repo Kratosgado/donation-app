@@ -22,7 +22,7 @@
 
 ### To run this project, follow these steps:
 
-1. Clone the repository to your local machzs3ine.
+1. Clone the repository to your local machine (Must have Nodejs intsalled)
 2. Install the dependencies using `pnpm install (if you have pnpm intsalled), yarn install or npm run install`.
 3. You must add firebase service acccount to access firebase storage.
 4. Start the 3elopment server by running `pnpm dev, yarn dev or npm run dev`.
