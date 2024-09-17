@@ -60,7 +60,6 @@ export default function Home() {
         ]}
       />
 
-
         <InspirationsSection />
         <InfiniteMovingCards
           items={testimonials}
